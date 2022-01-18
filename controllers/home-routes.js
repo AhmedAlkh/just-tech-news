@@ -3,6 +3,7 @@ const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
 router.get('/', (req, res) => {
+  console.log(req.session);
   res.render('homepage', {
     id:1,
     post_url: 'https://handlesbarsjs.com/guide/',
@@ -17,6 +18,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
   res.render('login');
 });
 
